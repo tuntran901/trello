@@ -21,7 +21,7 @@ type Member struct {
 	AvatarHash       string `json:"avatarHash"`
 	AvatarUrl        string `json:"avatarUrl"`
 	Email            string `json:"email"`
-	ActivityBlocked  string `json:"activityBlocked"`
+	ActivityBlocked  bool   `json:"activityBlocked"`
 }
 
 // GetMember takes a member id and Arguments and returns a Member or an error.
