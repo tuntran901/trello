@@ -14,13 +14,14 @@ import (
 // Actions are immutable event traces generated whenever an action occurs in Trello.
 // See https://developers.trello.com/reference/#actions.
 type Action struct {
-	ID              string      `json:"id"`
-	IDMemberCreator string      `json:"idMemberCreator"`
-	Type            string      `json:"type"`
-	Date            time.Time   `json:"date"`
-	Data            *ActionData `json:"data,omitempty"`
-	MemberCreator   *Member     `json:"memberCreator,omitempty"`
-	Member          *Member     `json:"member,omitempty"`
+	ID              string       `json:"id"`
+	IDMemberCreator string       `json:"idMemberCreator"`
+	Type            string       `json:"type"`
+	Date            time.Time    `json:"date"`
+	Data            *ActionData  `json:"data,omitempty"`
+	Display         *DisplayData `json:"display"`
+	MemberCreator   *Member      `json:"memberCreator,omitempty"`
+	Member          *Member      `json:"member,omitempty"`
 }
 
 // ActionData represent the nested data of actions
@@ -34,19 +35,33 @@ type ActionData struct {
 	ListBefore     *List           `json:"listBefore,omitempty"`
 	ListAfter      *List           `json:"listAfter,omitempty"`
 	DateLastEdited time.Time       `json:"dateLastEdited"`
-
-	CheckItem *CheckItem `json:"checkItem"`
-	Checklist *Checklist `json:"checklist"`
+	CheckItem      *CheckItem      `json:"checkItem"`
+	Checklist      *Checklist      `json:"checklist"`
 }
 
 // ActionDataCard represent the nested 'card' data attribute of actions
 type ActionDataCard struct {
+	IDList    string  `json:"idList"`
 	ID        string  `json:"id"`
 	Name      string  `json:"name"`
 	IDShort   int     `json:"idShort"`
 	ShortLink string  `json:"shortLink"`
 	Pos       float64 `json:"pos"`
 	Closed    bool    `json:"closed"`
+}
+
+type DisplayData struct {
+	TranslationKey string `json:"translationKey"`
+	Entities       struct {
+		Card          *ActionDataCard `json:"card"`
+		Board         *Board          `json:"board"`
+		ListBefore    *List           `json:"listBefore"`
+		ListAfter     *List           `json:"listAfter"`
+		MemberCreator struct {
+			Type string `json:"type"`
+			*Member
+		} `json:"memberCreator"`
+	} `json:"entities"`
 }
 
 // GetActions make a GET call for a board's actions

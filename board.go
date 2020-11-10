@@ -59,6 +59,7 @@ type Board struct {
 	Lists        []*List      `json:"lists"`
 	Actions      []*Action    `json:"actions"`
 	Organization Organization `json:"organization"`
+	ShortLink    string       `json:"shortLink"`
 }
 
 // NewBoard is a constructor that sets the default values

@@ -12,13 +12,16 @@ import (
 // Member represents a Trello member.
 // https://developers.trello.com/reference/#member-object
 type Member struct {
-	client     *Client
-	ID         string `json:"id"`
-	Username   string `json:"username"`
-	FullName   string `json:"fullName"`
-	Initials   string `json:"initials"`
-	AvatarHash string `json:"avatarHash"`
-	Email      string `json:"email"`
+	client           *Client
+	ID               string `json:"id"`
+	Username         string `json:"username"`
+	FullName         string `json:"fullName"`
+	IDMemberReferrer string `json:"idMemberReferrer"`
+	Initials         string `json:"initials"`
+	AvatarHash       string `json:"avatarHash"`
+	AvatarUrl        string `json:"avatarUrl"`
+	Email            string `json:"email"`
+	ActivityBlocked  string `json:"activityBlocked"`
 }
 
 // GetMember takes a member id and Arguments and returns a Member or an error.
